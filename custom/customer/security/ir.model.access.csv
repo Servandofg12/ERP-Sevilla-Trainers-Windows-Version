@@ -1,0 +1,5 @@
+id,name,model_id/id,group_id/id,perm_read,perm_write,perm_create,perm_unlink
+access_customer,access_customer,model_customer_customer,base.group_user,1,1,1,1
+access_monthly_review",access_monthly_review,model_monthly_review,base.group_user,1,1,1,1
+access_customer_training,access_customer_training,model_customer_training,base.group_user,1,1,1,1
+access_training_machine,access_training_machine,model_training_machine,base.group_user,1,1,1,1

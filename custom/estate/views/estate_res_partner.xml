@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+    <odoo>
+
+
+    <!-- Para que aparezca el boton en el menu-->
+    <record id="res_partner_action" model="ir.actions.act_window"><!-- el id que pongamos aqui servirá para llamarlo en el estate_menus-->
+      <field name="name">Partners</field>
+      <field name="res_model">res.partner</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    </odoo>

@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+  <odoo>
+
+    <!-- Para la vista de Listado o Tree-->
+    <record id="score_event_view_tree" model="ir.ui.view">
+      <field name="name">score.event.tree</field>
+      <field name="model">score.event</field>
+      <field name="arch" type="xml">
+        <tree string="Propiedades" editable="bottom">
+          <field name="score" string="Score"></field>
+          <field name="event_id" string="Event" invisible="True"></field>
+          <field name="user_id" string="Customer"></field>
+        </tree>
+      </field>
+    </record>
+
+
+    <!-- Para que aparezca el boton en el menu-->
+    <record id="score_event_action" model="ir.actions.act_window">
+      <field name="name">Score Event</field>
+      <field name="res_model">score.event</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+  </odoo>

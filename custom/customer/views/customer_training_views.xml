@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+  <odoo>
+
+    <!-- Para la vista de Listado o Tree-->
+    <record id="customer_training_view_tree" model="ir.ui.view">
+      <field name="name">customer.training.tree</field>
+      <field name="model">customer.training</field>
+      <field name="arch" type="xml">
+        <tree string="Properties"> 
+            <field name="name" string="Training name"/>
+            <field name="date_train" string="Date made"/>
+            <field name="numb_turns" string="Number of turns"/>
+            <field name="training_machine_ids" string="Machines used" widget="many2many_tags"/>
+        </tree>
+      </field>
+    </record>
+
+
+<!-- Para la vista de formulario Form-->
+    <record id="customer_training_view_form" model="ir.ui.view">
+        <field name="name">customer.training.form</field>
+        <field name="model">customer.training</field>
+        <field name="arch" type="xml">
+            <form string="Entrenamiento">
+                <sheet>
+                    <group>
+                        <h2>Name: <field name="name"/></h2>
+                    </group>
+                    <group>
+                        <field name="numb_turns" string="Number of turns"/>
+                        <field name="machine_use" string="¿Did you use machines?"/>
+                        <field name="training_machine_ids" widget="many2many_tags" attrs="{'invisible':[('machine_use', '==', False)]}" options="{'no_create': True}"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Para que aparezca el boton en el menu-->
+    <record id="customer_training_action" model="ir.actions.act_window"><!-- el id que pongamos aqui servirá para llamarlo en el estate_menus-->
+      <field name="name">Training</field>
+      <field name="res_model">customer.training</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+  </odoo>

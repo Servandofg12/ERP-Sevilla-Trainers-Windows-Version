@@ -1,0 +1,172 @@
+<?xml version="1.0"?>
+  <odoo>
+
+    <!-- Para la vista de Listado o Tree-->
+    <record id="customer_view_tree" model="ir.ui.view">
+      <field name="name">customer.customer.tree</field>
+      <field name="model">customer.customer</field>
+      <field name="arch" type="xml">
+        <tree string="Properties">
+          <field name="name" string="Name"></field>
+          <field name="surnames" string="Surnames"></field>
+          <field name="birth_date" string="Birth Date"/>
+          <field name="actual_weight"></field>
+          <field name="actual_height"></field>
+          <field name="season_pass" string="Season pass"></field>
+        </tree>
+      </field>
+    </record>
+
+    <record id="customer_view_form" model="ir.ui.view">
+        <field name="name">customer.customer.form</field>
+        <field name="model">customer.customer</field>
+        <field name="arch" type="xml">
+            <form string="Customer">
+
+              <header>
+                <!-- Aquí van botones de dar de alta y baja-->
+                <field name="registered" invisible="True"/>
+                <button name="action_register" type="object" string="Register" attrs="{'invisible':[('registered', '==', True)]}"/>
+                <button name="action_unsubscribe" type="object" string="Unsubscribe" attrs="{'invisible':[('registered', '==', False)]}"/>
+                <button name="action_monthly_payment" type="object" string="Payment" attrs="{'invisible':[('registered', '==', False)]}"/>
+              </header>
+
+                <sheet>
+                          <field name="image_1920" widget='image' class="oe_avatar"/>
+                    <group>
+                        <group>
+                            <field name="name" string="Name"/>
+                            <field name="surnames" string="Surnames"/>
+                            <field name="register_date" string="Registered in" readonly="True"/>
+                            <field name="unsubscribe_date" string="Unsubscribed in" readonly="True" attrs="{'invisible':[('registered', '==', True)]}"/>
+                        </group>
+                        <group>
+                            <field name="age" string="Age"/>
+                            <field name="season_pass_cost" string="Season pass cost"/>
+                            <field name="payday" string="Next payday"/>
+                            <field name="registered" invisible="True"/>
+                        </group>
+                    </group>
+                    <group>
+                        <notebook>
+                            <page1 string="Physical Aspects">
+                              <group>
+                                <field name="actual_weight"/>
+                                <field name="actual_height"/>
+                              </group>
+                            </page1>
+                            <page2 string="User">
+                              <group>
+                                <field name="user_id" string="User who's going to use the app" widget="many2one" options="{'no_create': False}"/>
+                              </group>
+                            </page2 >
+                            <page3 string="Personal and Contact data">
+                              <group>
+                                <group>
+                                  <field name="have_dni" string="¿Does she have DNI?"/>
+                                  <field name="dni" string="DNI" attrs="{'invisible':[('have_dni', '==', False)]}"/>
+                                  <field name="nie" string="NIE" attrs="{'invisible':[('have_dni', '==', True)]}"/>
+                                </group>
+                                <group>
+                                  <field name="email" string="Email"/>
+                                  <field name="phone" string="Phone number"/>
+                                  <field name="address" string="Address"/>
+                                  <field name="goal" string="Goal"/>
+                                </group>
+                              </group>
+                            </page3>
+                            <page4 string="Way to pay and Season pass">
+                              <group>
+                                <field name="ways_to_pay" string="Way to pay"/>
+                                <field name="birth_date" string="Birth date"/>
+                                <field name="season_pass" string="Season pass"/>
+                              </group>
+                            </page4>
+                            <page5 string="Monthly Review" attrs="{'invisible':[('registered', '==', False)]}">
+                              <group>
+                                <field name="monthly_review_ids" widget="one2many_list"/>
+                              </group>
+                            </page5>
+                            <page6 string="Trainings" attrs="{'invisible':[('registered', '==', False)]}">
+                              <group>
+                                <field name="customer_training_ids" widget="one2many_list"/>
+                              </group>
+                            </page6>
+                        </notebook>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Para el filtrado y group by con Search-->
+  <record id="customer_view_search" model="ir.ui.view">
+            <field name="name">customer.customer.search</field>
+            <field name="model">customer.customer</field>
+            <field name="arch" type="xml">
+                <search string="Customer searcher">
+                    <field name="registered" string="Registered"/>
+                    <separator/>
+                    <filter string="Registered" name="registered" domain="[('registered', '=', True)]"/>
+                    <filter string="Unsubscribed" name="registered" domain="[('registered', '=', False)]"/>
+                    
+                    <group expand="1" string="Group By">
+                        <filter string="Season Pass" name="season_pass" context="{'group_by':'season_pass'}"/>
+                    </group>
+                </search>
+            </field>
+  </record>
+
+
+  <!-- Kanban -->
+  <record id="customer_view_kanban" model="ir.ui.view">
+  <field name="name">customer.customer.kanban</field>
+  <field name="model">customer.customer</field>
+  <field name="arch" type="xml">
+    <kanban default_group_by="season_pass" records_draggable="0">
+      <field name="registered"/><!-- Es necesario para los t-if-->
+      <field name="image_1920"/>
+      <templates>
+          <t t-name="kanban-box">
+              <div class="oe_kanban_global_click o_kanban_record_has_image_fill o_hr_kanban_record">
+                  <field name="image_1920" widget="image" class="o_kanban_image_fill_left" options="{'zoom': true, 'zoom_delay': 1000, 'background': true, 'preventClicks': false}"/>
+              <div class="oe_kanban_details">
+              <div class="o_kanban_record_top">
+              <div class="o_kanban_record_headings">
+                  <strong class="o_kanban_record_title">
+                  <div class="float-right">
+                    <h3><field name="name"/> <field name="surnames"/></h3>
+                  </div>
+                  <div>
+                    <strong class="o_kanban_record_title">
+                    Username: <field name="user_id"/>
+                    </strong>
+                  </div>
+                  <div>
+                    Season pass: <field name="season_pass"/>
+                  </div>
+                  <div class="float-right" t-if="record.registered.raw_value">
+                    Registered in: <field name="register_date"/>
+                  </div>
+                  </strong>
+              </div>
+              </div>
+              </div>
+              </div>
+          </t>
+      </templates>
+    </kanban>
+    </field>
+  </record>
+
+
+
+  <!-- Para que aparezca el boton en el menu-->
+    <record id="customer_action" model="ir.actions.act_window"><!-- el id que pongamos aqui servirá para llamarlo en el usuario_socia_menu-->
+      <field name="name">Customer</field>
+      <field name="res_model">customer.customer</field>
+      <field name="view_mode">kanban,tree,form</field>
+      <field name="context">{'search_default_available': True}</field>
+    </record>
+
+  </odoo>

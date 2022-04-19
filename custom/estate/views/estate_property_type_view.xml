@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+  <odoo>
+
+<!-- Para la vista de Listado o Tree-->
+    <record id="estate_property_type_view_tree" model="ir.ui.view">
+      <field name="name">estate.property.type.tree</field>
+      <field name="model">estate.property.type</field>
+      <field name="arch" type="xml">
+        <tree string="Properties"> 
+          <field name="sequence" widget="handle"/>
+          <field name="name" string="Name"></field>
+        </tree>
+      </field>
+    </record>
+
+
+<!-- Para la vista de formulario Form-->
+    <record id="estate_property_type_view_form" model="ir.ui.view">
+        <field name="name">estate.property.type.form</field>
+        <field name="model">estate.property.type</field>
+        <field name="arch" type="xml">
+            <form string="Estate Property Type">
+              <!-- <div class="oe_button_box" name="button_box">
+                <button name="action_estate_property_type" type="object"
+                            class="oe_stat_button" icon="fa-star">
+                </button>
+              </div> -->
+                        <!-- This is another solution using a method call -->
+                        <!-- <button name="action_view_offers" type="object" class="oe_stat_button" icon="fa-money">
+                            <field name="offer_count" widget="statinfo" string="Offers"/>
+                        </button> -->
+
+
+                <sheet>
+                  <div class="oe_button_box" name="button_box">
+                        <button name="%(estate_property_offer_action)d" type="action" class="oe_stat_button" icon="fa-money">
+                            <field name="offer_count" widget="statinfo" string="Offers"/>
+                        </button>
+                  </div>
+
+                        <h1><field name="name"/></h1>
+                    <notebook>
+                      <page string="Properties">
+                        <field name="property_ids">
+                          <tree>
+                            <field name="name" string="Title"/>
+                            <field name="expected_price"/>
+                            <field name="state" string="Status"/>
+                          </tree>
+                        </field>
+                      </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+
+<!-- Para que aparezca el boton en el menu-->
+    <record id="estate_property_type_action" model="ir.actions.act_window"><!-- el id que pongamos aqui servirá para llamarlo en el estate_menus-->
+      <field name="name">Estate Property type</field>
+      <field name="res_model">estate.property.type</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+  </odoo>

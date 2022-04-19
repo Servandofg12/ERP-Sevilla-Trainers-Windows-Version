@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+  <odoo>
+
+    <!-- Para la vista de Listado o Tree-->
+    <record id="monthly_review_view_tree" model="ir.ui.view">
+      <field name="name">monthly.review.tree</field>
+      <field name="model">monthly.review</field>
+      <field name="arch" type="xml">
+        <tree string="Propiedades">
+          <field name="date_made" string="Date made" readonly="True"></field>
+          <field name="new_weight" string="New weight" attrs="{'readonly': [('id','!=', False)]}"></field>
+          <field name="new_height" string="New height" attrs="{'readonly': [('id','!=', False)]}"></field>
+          <field name="body_fat_percentage" string="Body fat percentage (%)" attrs="{'readonly': [('id','!=', False)]}"/>
+          <field name="body_mass_index" string="Body mass index" attrs="{'readonly': [('id','!=', False)]}"></field>
+        </tree>
+      </field>
+    </record>
+
+
+  <!-- Para la vista de formulario Form-->
+    <record id="monthly_review_view_form" model="ir.ui.view">
+        <field name="name">monthly.review.form</field>
+        <field name="model">monthly.review</field>
+        <field name="arch" type="xml">
+            <form string="Revisión Mensual">
+                <sheet>
+                    <group>
+                        <group>
+                          <field name="new_weight" string="New weight" attrs="{'readonly': [('id','!=', False)]}"></field>
+                          <field name="new_height" string="New height" attrs="{'readonly': [('id','!=', False)]}"></field>
+                          <field name="body_fat_percentage" string="Body fat percentage (%)" attrs="{'readonly': [('id','!=', False)]}"/>
+                          <field name="body_mass_index" string="Body mass index" attrs="{'readonly': [('id','!=', False)]}"></field>
+                        </group>
+                        <group>
+                          <field name="chest_measurement" string="Chest measurement" attrs="{'readonly': [('id','!=', False)]}"></field>
+                          <field name="weist_measurement" string="Weist measurement" attrs="{'readonly': [('id','!=', False)]}"></field>
+                          <field name="abdomen_measure" string="Abdomen measure" attrs="{'readonly': [('id','!=', False)]}"></field>
+                          <field name="hips_measure" string="Hips measure" attrs="{'readonly': [('id','!=', False)]}"></field>
+                          <field name="thighs_measure" string="Thighs measure" attrs="{'readonly': [('id','!=', False)]}"></field>
+                          <field name="arms_measure" string="Arms measure" attrs="{'readonly': [('id','!=', False)]}"></field>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+
+    <!-- Para que aparezca el boton en el menu-->
+    <record id="monthly_review_action" model="ir.actions.act_window"><!-- el id que pongamos aqui servirá para llamarlo en el usuario_socia_menu-->
+      <field name="name">Monthly Review</field>
+      <field name="res_model">monthly.review</field>
+      <field name="view_mode">tree,form</field>
+      <field name="context">{'search_default_available': True}</field>
+    </record>
+
+  </odoo>

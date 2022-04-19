@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+  <odoo>
+
+    <!-- Para la vista de Listado o Tree-->
+    <record id="training_machine_view_tree" model="ir.ui.view">
+      <field name="name">training.machine.tree</field>
+      <field name="model">training.machine</field>
+      <field name="arch" type="xml">
+        <tree string="Machines"> 
+          <field name="name" string="Machine's name"></field>
+        </tree>
+      </field>
+    </record>
+
+
+    <!-- Para la vista de formulario Form-->
+    <record id="training_machine_view_form" model="ir.ui.view">
+        <field name="name">training.machine.form</field>
+        <field name="model">training.machine</field>
+        <field name="arch" type="xml">
+            <form string="Property">
+                <sheet>
+                    <group>
+                        <h2>Name: <field name="name"/></h2>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Para que aparezca el boton en el menu-->
+    <record id="training_machine_action" model="ir.actions.act_window"><!-- el id que pongamos aqui servirá para llamarlo en el estate_menus-->
+      <field name="name">Machines</field>
+      <field name="res_model">training.machine</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+  </odoo>
