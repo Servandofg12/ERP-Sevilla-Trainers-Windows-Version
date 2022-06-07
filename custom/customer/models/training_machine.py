@@ -11,4 +11,4 @@ class TrainingMachines(models.Model):#retocar el security
     _order = "name desc"
 
     #Atributes machine------------------------------------------------------------------------------------------------------
-    name = fields.Char()
+    name = fields.Char(required=True)
